@@ -53,6 +53,7 @@ exports.getDevices = function(req, res) {
         res.json({
             results: results
         });
+        res.send("success"+results);
 		logger.info('system=foodie-search-tune-reference event=device.getDevices access_token='+req.session.access_token+" result="+result);
     });
 }
