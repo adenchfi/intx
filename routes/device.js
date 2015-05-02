@@ -26,15 +26,15 @@ exports.getDevices = function(req, res) {
         }
     };
 
-    utils.executeHttpRequest(options, 'device.lookUpDevices', function(statusCode, data) {
+    utils.executeHttpRequest(options, 'device.getDevices', function(statusCode, data) {
         try {
             if (statusCode!==200) {
-                logger.error('system=foodie-account-notification-reference event=device.lookupDevices status=error statusCode=' + statusCode + ' responseBody=' + data);
+                logger.error('system=foodie-account-notification-reference event=device.getDevices status=error statusCode=' + statusCode + ' responseBody=' + data);
                 res.render('errorPage', {error: JSON.stringify(data)});
             } else {
                 try {
                     var results = JSON.parse(data);
-                    logger.info("system=foodie-account-notification-reference event=device.lookupDevices status=success response="+data);
+                    logger.info("system=foodie-account-notification-reference event=device.getDevices status=success response="+data);
 
                     /* save the account's devices in session */
                     req.session.devices = results.results.devices;
@@ -44,13 +44,13 @@ exports.getDevices = function(req, res) {
                         access_token: req.session.access_token
                     });
                 } catch (e) {
-                    logger.error("system=foodie-account-notification-reference event=device.lookupDevices status=error response="+data);
+                    logger.error("system=foodie-account-notification-reference event=device.getDevices status=error response="+data);
                     res.render('errorPage', {error: JSON.stringify(data)});
                 }
             }
 
         } catch(err) {
-            logger.error('system=foodie-account-notification-reference event=device.lookUpDevices status=error responseBody=' + err);
+            logger.error('system=foodie-account-notification-reference event=device.getDevices status=error responseBody=' + err);
             res.render('errorPage', {error: err});
         }
     });
