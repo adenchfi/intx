@@ -15,46 +15,44 @@ exports.tuneToTV = function(req, res) {
 }
 
 exports.getDevices = function(req, res) {
-    logger.info('system=foodie-search-tune-reference event=device.tuneToTV access_token='+req.session.access_token+" showName="+req.body.showName);
+
     var access_token = req.session.access_token;
-
-	var deviceurl = "https://secure.api.comcast.net/X1/api/v1/devices";
-
+    var url = config.x1.baseUrl + "/devices";
     var options = {
-        url: deviceurl,
+        url: url,
         method: 'GET',
         headers: {
-            "Authorization": "Bearer "+access_token,
-            "Content-Type": "application/json"
+            "Authorization": "Bearer "+access_token
         }
     };
 
-    var results;
-    utils.executeHttpRequest(options, 'device.tuneEntity', function(statusCode, data) {
+    utils.executeHttpRequest(options, 'device.lookUpDevices', function(statusCode, data) {
         try {
             if (statusCode!==200) {
-                logger.error('system=foodie-search-tune-reference event=device.tuneEntity status=error statusCode=' + statusCode + ' responseBody=' + data);
+                logger.error('system=foodie-account-notification-reference event=device.lookupDevices status=error statusCode=' + statusCode + ' responseBody=' + data);
+                res.render('errorPage', {error: JSON.stringify(data)});
             } else {
-                logger.info("system=foodie-search-tune-reference event=device.tuneEntity status=success response="+data);
-            }
-            try {
-                results = JSON.parse(data);
+                try {
+                    var results = JSON.parse(data);
+                    logger.info("system=foodie-account-notification-reference event=device.lookupDevices status=success response="+data);
 
-            } catch (e) {
-                logger.error("system=foodie-search-tune-reference event=device.tuneEntity status=error response="+data);
-                results = {statusCode: '404', statusMessage: data};
+                    /* save the account's devices in session */
+                    req.session.devices = results.results.devices;
+
+                    /* render to ultimateFoodie page */
+                    res.render('ultimateFoodie',{
+                        access_token: req.session.access_token
+                    });
+                } catch (e) {
+                    logger.error("system=foodie-account-notification-reference event=device.lookupDevices status=error response="+data);
+                    res.render('errorPage', {error: JSON.stringify(data)});
+                }
             }
 
         } catch(err) {
-            logger.error('system=foodie-search-tune-reference event=device.tuneEntity status=error responseBody=' + err);
-            results = {statusCode: '404', statusMessage: err};
+            logger.error('system=foodie-account-notification-reference event=device.lookUpDevices status=error responseBody=' + err);
+            res.render('errorPage', {error: err});
         }
-        /* after response sending out, ajax call is complete */
-        res.json({
-            results: results
-        });
-        res.send("success"+results);
-		logger.info('system=foodie-search-tune-reference event=device.getDevices access_token='+req.session.access_token+" result="+result);
     });
 }
 
