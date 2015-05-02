@@ -8,11 +8,11 @@
         <script src="javascripts/foodieResults.js"></script>
     </head>
     <body>
-        <div class="darkOverlay opacity3">
+        <div class="darkOverlay opacity2">
             <div class="noFocus">
                 <div class="ultimateFoodie">The Ultimate Foodie</div>
-                <div class="basedOn">Based on your answers, we think you'll like these shows. You'll get a TV notification</div>
-                <div class="newRecommended">when new recommended shows and episodes are added.</div>
+                <div class="basedOn">Based on your answers, we think you'll like these shows. </div>
+                <div class="newRecommended">You can tune to the show for more information by selecting it!</div>
             </div>
             <form name="retakeForm" action="../retakeQuiz" method="POST">
                 <div class="retakeQuiz navigate">
@@ -24,21 +24,9 @@
 
         <div id="confirmOverlay" class="displayNone">
            <div class="blueTVBanner"></div>
-           <div class="notificationSent" id="notificationStatus">Notification Sent to</div>
-           <div class="notificationSent" id="sentToName"> </div>
+           <div class="notificationSent" id="tuneTo"></div>
         </div>
 
-        <div id="devicesOverlay" class="displayNone">
-           <img src="img/close.png" class="floatRight" onclick="closeDevicesOverlay()">
-           <div class="selectTV">Select a TV to Send a Notification</div>
-           <% for (var j = 0; j < devices.length; ++j) { %>
-             <div class="deviceBar" onclick="selectDeviceToSendNotification('<%=devices[j].id%>', '<%=devices[j].name%>')">
-                <div class="deviceName"><%=devices[j].name%></div>
-             </div>
-           <% } %>
-        </div>
-
-        <input type="hidden" name="entityId" value=""/>
         <input type="hidden" name="chefSelected" value="<%=chef%>"/>
     </body>
 </html>

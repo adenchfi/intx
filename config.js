@@ -4,17 +4,19 @@ module.exports = {
     },
 
     authorizeUrl: 'https://secure.api.comcast.net/X1/oauth2/authorize',
-    /* Put oauth redirectUri, which is from portal application*/
-    redirectUri: 'https://intxtonyadam.azurewebsites.net/oauthSuccess',
-    /* Put clientId, which is from portal application*/
+    /*
+     The registered callback URL set in portal
+     */
+    redirectUri: 'https://intxadamtony.azurewebsites.net/oauthSuccess',
+    /* The registered client id set in portal */
     clientId: '8n8u9sk6k8dhdt4mpg6jbc8c',
-    /* Put clientSecret, which is from portal application*/
+    /* The registered client secret set in portal */
     clientSecret: 'CgAN3j3Z',
-    scope: 'devices.lookup content.search devices.tune devices.send_notification',
+    scope: 'content.search devices.tune',
 
     getAccessToken: {
         baseUrl: 'https://secure.api.comcast.net/X1/oauth2/token'
     },
 
-    port: 3000
+    port: 8080
 }

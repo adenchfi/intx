@@ -1,6 +1,6 @@
 /* Get a list of shows of the selected chef from shows.json, which is a static JSON file in Public/
  * Display the list of shows in showResults.html, clicking on each show will pop up devices overlay
-  * */
+ * */
 $(document).ready(function() {
     var chefSelected = $("input[name=chefSelected]").val();
     $.getJSON("/shows.json", function(data) {
@@ -8,7 +8,7 @@ $(document).ready(function() {
             if (chefSelected == data[i].chef) {
                 var output = "";
                 for (var j in data[i].shows) {
-                    output += "<div class='show navigate' style=\"background-image: url('" + data[i].shows[j].icon + "')\" onclick=\"displayDevices('" +data[i].shows[j].entityId+ "')\"></div>";
+                    output += "<div class='show navigate' style=\"background-image: url('" + data[i].shows[j].icon + "')\" onclick=\"tuneToDevice('" +data[i].shows[j].name+ "')\"></div>";
                 }
             }
         }
@@ -20,52 +20,41 @@ $(document).ready(function() {
 
 });
 
-/* This method issues ajax call, which is handled in device.js
- * it calls sendNotification thirdparty API
-  * it shows confirmation message to user if success
-   * it shows error statusMessage to user if fails */
- function selectDeviceToSendNotification(deviceId, deviceName) {
+/*
+ * This method issues ajax call, which is handled in device.js
+ * It calls tuneEnity third party API
+ * It shows confirmation message to user if success
+ * shows error statusMessage to user if fails
+ */
 
-    var entityId = $("input[name=entityId]").val();
-    closeDevicesOverlay();
+function tuneToDevice(showName) {
     $('.darkOverlay .navigate').not('.noFocus').navigate('destroy');
 
     $.ajax({
-        type: "post",
-        url: "/checkAccessTokenAndSendNotification",
-        data: {deviceId:deviceId, deviceName:deviceName, entityId: entityId}
+        type: "put",
+        url: "/tuneToTV",
+        data: {showName: showName}
     })
-    .done(function(result) {
-        $("#confirmOverlay").removeClass('displayNone');
-        if (result.results.statusCode == '200') {
-            /* notification sent successfully, show confirm message */
-            $("#sentToName").html(deviceName + " TV!");
-        } else {
-            /* notification sent failed, show error message */
-            $("#notificationStatus").html(result.results.statusMessage);
-        }
-    });
+        .done(function(result) {
+            $("#confirmOverlay").removeClass('displayNone');
+            if (result.results.statusCode == '200') {
+                /* tuned successfully, show confirm message */
+                $("#tuneTo").html("Tune to " + showName + "!");
+                exitRequest();
+            } else {
+               /* tuneEntity failed, show error message */
+                $("#tuneTo").html(result.results.statusMessage);
+            }
+        });
 }
 
-/* open devices overlay, remove shows key navigation,
- * add key navigation inside devices overlay */
-function displayDevices(entityId) {
-    $("input[name=entityId]").val(entityId);
-    $('#devicesOverlay').removeClass('displayNone');
-    $('.darkOverlay .navigate').not('.noFocus').navigate('destroy');
-    $('#devicesOverlay .deviceBar').navigate({
-        activeClass: 'deviceBarHover'
-    });
+/* This method issues exitrequest third party API call,
+ * It returns back to TV and let user see the tuned results
+* */
+function exitRequest() {
+    $.ajax({
+        type: "post",
+        url: "/exitrequest"
+    })
+        .done(function(result){});
 }
-
-/* after sendNotificationToTV ajax call, close devices overlay,
- * remove key navigation inside devices overlay,
-*  put back shows navigation*/
-function closeDevicesOverlay() {
-    $('#devicesOverlay').addClass('displayNone');
-    $('#devicesOverlay .deviceBar').navigate('destroy');
-    $('.darkOverlay .navigate').not('.noFocus').navigate({
-        activeClass: 'retakeHover'
-    });
-}
-

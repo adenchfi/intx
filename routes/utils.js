@@ -15,7 +15,7 @@ exports.executeHttpRequest= function(options, caller, callback) {
 
         var responseTime = (Date.now() - requestStartTime) + 'ms';
 
-        var commonLogInfo = 'system=foodie-account-notification-reference event=executeHttpRequest caller=' + caller + ' requestUrl=' + options.url + ' responseTime=' + responseTime;
+        var commonLogInfo = 'system=foodie-search-tune-reference event=executeHttpRequest caller=' + caller + ' requestUrl=' + options.url + ' responseTime=' + responseTime;
         if (error) {
             logger.error(commonLogInfo + 'status=invalidOptions statusCode=-1 error=' + error + ' options=' + JSON.stringify(options));
             callback(-1, null);

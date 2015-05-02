@@ -1,7 +1,7 @@
 var cuisineSelected = 0;
 
 /* After user selects 3 cuisines,
-*  it enters drinks page */
+ *  it enters drinks page */
 function selectCuisine(e, cuisineName) {
 
     $('#'+cuisineName).removeClass('displayNone');

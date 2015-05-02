@@ -1,11 +1,11 @@
 var config = require(configDir+'config.js');
-var device = require('./device');
 var logger = require('log4js').getLogger('oauthSuccess');
 var utils = require('./utils');
+var account = require('./account');
 
 /*
-* A function to call getAccessToken if there is authorization code
-* if user declined in permission page, enter accessDenied page */
+ * A function to call getAccessToken if there is authorization code
+ * if user declined in permission page, enter accessDenied page */
 exports.get = function(req, res){
 
     if (req.query.code){
@@ -39,42 +39,51 @@ function getAccessToken(req, res) {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         };
-        logger.info("system=foodie-account-notification-reference event=oauthSuccess.getAccessToken bodyString: " + bodyString);
+        logger.info("system=foodie-search-tune-reference event=oauthSuccess.getAccessToken bodyString: " + bodyString);
 
         utils.executeHttpRequest(options, 'oauthSuccess.getAccessToken', function(statusCode, data) {
             try {
                 if (statusCode!==200) {
-                    logger.error('system=foodie-account-notification-reference event=oauthSuccess.getAccessToken status=error statusCode=' + statusCode + ' responseBody=' + data);
+                    logger.error('system=foodie-search-tune-reference event=oauthSuccess.getAccessToken status=error statusCode=' + statusCode + ' responseBody=' + data);
                     res.render('errorPage', {error: JSON.stringify(data)});
                 } else {
                     try {
                         accessToken = JSON.parse(data);
-                        logger.info('system=foodie-account-notification-reference event=oauthSuccess.getAccessToken status=success data='+data);
+                        logger.info('system=foodie-search-tune-reference event=oauthSuccess.getAccessToken status=success data='+data);
                     } catch(err) {
-                        logger.error('system=foodie-account-notification-reference event=oauthSuccess.getAccessToken status=error responseBody=' + data);
+                        logger.error('system=foodie-search-tune-reference event=oauthSuccess.getAccessToken status=error responseBody=' + data);
                         res.render('errorPage', {error: JSON.stringify(data)});
                     }
-                    logger.info('system=foodie-account-notification-reference event=oauthSuccess.getAccessToken status=success access_token=' + accessToken.access_token + ' expires=' + accessToken.expires_in);
+                    logger.info('system=foodie-search-tune-reference event=oauthSuccess.getAccessToken status=success access_token=' + accessToken.access_token + ' expires=' + accessToken.expires_in);
 
                     /* save access_token in session */
                     req.session.access_token = accessToken.access_token;
                     req.session.refresh_token = accessToken.refresh_token;
                     req.session.access_token_start_time = new Date().getTime();
-                    /* use access_token to get account's devices */
-                    device.lookupDevices(req, res);
+
+                    /* render to ultimateFoodie page */
+                    res.render('ultimateFoodie',{
+                        access_token: req.session.access_token
+                    });
 
                 }
             } catch(err) {
-                logger.error('system=foodie-account-notification-reference event=oauthSuccess.getAccessToken status=error responseBody=' + err);
+                logger.error('system=foodie-search-tune-reference event=oauthSuccess.getAccessToken status=error responseBody=' + err);
                 res.render('errorPage', {error: err});
             }
         });
     } catch(err) {
-        logger.error('system=foodie-account-notification-reference event=oauthSuccess.getAccessToken status=error responseBody=' + err);
+        logger.error('system=foodie-search-tune-reference event=oauthSuccess.getAccessToken status=error responseBody=' + err);
         res.render('errorPage', {error: err});
     }
 }
 
+/*
+ * A function to get access_token by Refresh token if it expired
+ * if not expired, just use the access_token stored in session to make content search API call
+ * @param - req: request containing refresh_token
+ * @param - res: response
+ */
 exports.getAccessTokenFromSessionOrByRefreshToken = function(req, res) {
 
     var now_time = new Date().getTime();
@@ -83,7 +92,7 @@ exports.getAccessTokenFromSessionOrByRefreshToken = function(req, res) {
 
     /* The access_token stored in session is active for 60 minutes;
      * if longer than 60 minutes, use refresh token to make API call to get new access token */
-     if (Math.round(diff/60000) >= 60) {
+    if (Math.round(diff/60000) >= 60) {
         try {
             var bodyString = "client_id=" + config.clientId + "&client_secret=" + config.clientSecret + "&grant_type=refresh_token&redirect_uri=" + encodeURIComponent(config.redirectUri) + "&refresh_token=" + req.session.refresh_token;
 
@@ -120,15 +129,15 @@ exports.getAccessTokenFromSessionOrByRefreshToken = function(req, res) {
                     }
                 } catch (err) {
                     logger.error('system=foodie-account-notification-reference event=oauthSuccess.getAccessTokenByRefreshToken status=error responseBody=' + err);
-                    res.render('errorPage', {error: JSON.stringify(data)});
+                    res.render('errorPage', {error: err});
                 }
             });
         } catch (err) {
             logger.error('system=foodie-account-notification-reference event=oauthSuccess.getAccessTokenByRefreshToken status=error responseBody=' + err);
-            res.render('errorPage', {error: JSON.stringify(data)});
+            res.render('errorPage', {error: err});
         }
     }
-    /* issue sendNotification API call*/
-    device.sendNotificationToTV(req, res);
+    /* issue search content API call*/
+    account.contentSearchByTitle(req, res);
 }
 

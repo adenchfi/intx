@@ -2,12 +2,14 @@
 /**
  * Module dependencies.
  */
+//configDir='/opt/csv/etc/conf/thirdptysampleapp/';
 configDir=process.cwd()+'/';
 var express = require('express');
 var oauth = require('./routes/oauth');
 var oauthSuccess = require('./routes/oauthSuccess');
 var http = require('http');
 var path = require('path');
+var account = require('./routes/account');
 var device = require('./routes/device');
 var foodieController = require('./routes/foodieController');
 var config = require(configDir+'config.js');
@@ -39,16 +41,15 @@ if ('development' == app.get('env')) {
 app.get('/', oauth.get);
 app.get('/oauth', oauth.get);
 app.get('/oauthSuccess', oauthSuccess.get);
-app.post('/lookUpDevices', device.lookupDevices);
-app.post('/checkAccessTokenAndSendNotification', device.checkAccessTokenAndSendNotification);
-
-//foodie flow requests are handled in foodieController
+app.post('/contentSearchByTitle', account.contentSearchByTitle);
+app.post('/tuneEntity', device.tuneEntity);
 app.post('/goToCuisinesPage', foodieController.goToCuisinesPage);
 app.post('/retakeQuiz', foodieController.goToCuisinesPage);
 app.post('/goToDrinksPage', foodieController.goToDrinksPage);
 app.post('/goToChefsPage', foodieController.goToChefsPage);
 app.post('/goToShowsPage', foodieController.goToShowsPage);
-
+app.put('/tuneToTV', device.tuneToTV);
+app.post('/exitrequest', device.exitrequest);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

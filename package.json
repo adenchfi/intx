@@ -1,6 +1,6 @@
 {
-  "name": "thirdparty-testapp",
-  "version": "0.8.6",
+  "name": "foodie-search-tune-reference",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node app.js"

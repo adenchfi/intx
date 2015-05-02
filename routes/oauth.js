@@ -22,13 +22,13 @@ exports.get = function(req, res){
         redirectToAuthorizeUrl += "&xscd=" + xscdToken;
     }
 
-    logger.info("system=foodie-account-notification-reference event=oauth headers="+JSON.stringify(req.headers));
-    logger.info("system=foodie-account-notification-reference event=oauth redirectUrl="+redirectToAuthorizeUrl);
+    logger.info("system=foodie-search-tune-reference event=oauth headers="+JSON.stringify(req.headers));
+    logger.info("system=foodie-search-tune-reference event=oauth redirectUrl="+redirectToAuthorizeUrl);
 
     /* Start the 3 legged oauth:
      *   1. An user will be prompted for username/password if XSCD is not presented.
      *   2. The user will be asked to accept permissions (for the app to use the APIs).
-     *   3. Once accepted, the user will be redirected to the accountnotification page, where the app will obtain the
+     *   3. Once accepted, the user will be redirected to the oauthSuccess page, where the app will obtain the
      *      API access token.
      */
     res.redirect(redirectToAuthorizeUrl);
