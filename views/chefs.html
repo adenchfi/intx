@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/fonts.css"/>
+        <script src="javascripts/jquery-1.11.1.min.js"></script>
+        <script src="javascripts/jquery.navigate.min.js"></script>
+        <script src="javascripts/foodie.js"></script>
+        <script>
+            $(function(){
+                $('.darkOverlay .chef').navigate({
+                    activeClass: 'chefSelected'
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <div class="darkOverlay opacity2">
+            <div class="chefBanner">You're stranded on an island. Which chef would you want to be stuck with?</div>
+            <div class="chefSection">
+                <div>
+                    <div id="chef1" onclick="selectChef('chef1','Alex');" class="chef chef1">
+                        <div class="chefName">Alex Guarnaschelli</div>
+                    </div>
+                    <div id="chef2" onclick="selectChef('chef2','Guy');" class="chef chef2">
+                        <div class="chefName">Guy Fieri</div>
+                    </div>
+                </div>
+                <div>
+                    <div id="chef3" onclick="selectChef('chef3','Alton');" class="chef chef3">
+                        <div class="chefName">Alton Brown</div>
+                    </div>
+                    <div id="chef4" onclick="selectChef('chef4','Ina');" class="chef chef4">
+                        <div class="chefName">Ina Garten</div>
+                    </div>
+                </div>
+                <div>
+                    <div id="chef5" onclick="selectChef('chef5','Bobby');" class="chef chef3">
+                        <div class="chefName">Bobby Flay</div>
+                    </div>
+                    <div id="chef6" onclick="selectChef('chef6','Rachel');" class="chef chef4">
+                        <div class="chefName">Rachel Ray</div>
+                    </div>
+                </div>
+                <div>
+                    <div id="chef7" onclick="selectChef('chef7','Giada');" class="chef chef3">
+                        <div class="chefName">Giada De Laurentiis</div>
+                    </div>
+                    <div id="chef8" onclick="selectChef('chef8','Tyler');" class="chef chef4">
+                        <div class="chefName">Tyler Florence</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form name="chefsForm" action="../goToShowsPage" method="post">
+            <input type="hidden" name="chef" value=""/>
+        </form>
+    </body>
+</html>

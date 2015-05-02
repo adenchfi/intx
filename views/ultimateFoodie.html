@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/fonts.css"/>
+        <script src="javascripts/jquery-1.11.1.min.js"></script>
+        <script src="javascripts/jquery.navigate.min.js"></script>
+        <script src="javascripts/foodie.js"></script>
+        <script>
+            $(function(){
+                $('.darkOverlay a').navigate({
+                    activeClass: 'none'
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <div class="darkOverlay opacity1">
+            <div class="foodieBanner">The Ultimate Foodie</div>
+            <div class="descAnswer">Answer a few questions and we'll recommend</div>
+            <div class="descFood">food related shows you'll love!</div>
+            <div class="okImg">
+                <form name="startForm" action="../goToCuisinesPage" method="post"><a href="#" onclick="javascript:document.forms['startForm'].submit()"><img src="img/OK.png"/></a></form>
+            </div>
+        </div>
+    </body>
+</html>
+

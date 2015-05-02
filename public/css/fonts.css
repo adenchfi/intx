@@ -1,0 +1,46 @@
+@font-face
+{
+	font-family: xfinityBold;
+	src: url('../fonts/XFINITYSans-Bold.otf') format("opentype");
+}
+@font-face
+{
+	font-family: xfinityBoldCond;
+	src: url('../fonts/XFINITYSans-BoldCond.otf') format("opentype");
+}
+
+@font-face
+{
+	font-family: xfinityExLight;
+	src: url('../fonts/XFINITYSans-ExLgt.otf') format("opentype");
+}
+
+@font-face
+{
+	font-family: xfinityLight;
+	src: url('../fonts/XFINITYSans-Lgt.otf') format("opentype");
+}
+
+@font-face
+{
+	font-family: xfinityMed;
+	src: url('../fonts/XFINITYSans-Med.otf') format("opentype");
+}
+
+@font-face
+{
+	font-family: xfinityMedCond;
+	src: url('../fonts/XFINITYSans-MedCond.otf') format("opentype");
+}
+
+@font-face
+{
+	font-family: xfinity;
+	src: url('../fonts/XFINITYSans-Reg.otf') format("opentype");
+}
+
+@font-face
+{
+	font-family: xfinityThin;
+	src: url('../fonts/XFINITYSans-Thin.otf') format("opentype");
+}

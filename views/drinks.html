@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/fonts.css"/>
+        <script src="javascripts/jquery-1.11.1.min.js"></script>
+        <script src="javascripts/jquery.navigate.min.js"></script>
+        <script src="javascripts/foodie.js"></script>
+        <script>
+            $(function(){
+                $('.darkOverlay .drink').navigate()
+            });
+        </script>
+    </head>
+    <body>
+        <div class="darkOverlay opacity2">
+            <div class="top3Cuisines">You're thirsty. What do you drink?</div>
+            <div class="drinkSection">
+                <div onclick="selectDrink(this,'GreenSmoothie');" class="drink drink1">
+                    <div class="gradient">
+                        <div class="cuisineKind">Green Smoothie</div>
+                    </div>
+                    <div id="GreenSmoothie" class="drinkSelected displayNone"></div>
+                </div>
+                <div onclick="selectDrink(this, 'Wine');" class="drink drink2">
+                    <div class="gradient">
+                        <div class="cuisineKind">Wine</div>
+                    </div>
+                    <div id="Wine" class="drinkSelected displayNone"></div>
+                </div>
+                <div onclick="selectDrink(this, 'Beer');" class="drink drink3">
+                    <div class="gradient">
+                        <div class="cuisineKind">Beer</div>
+                    </div>
+                    <div id="Beer" class="drinkSelected displayNone"></div>
+                </div>
+            </div>
+            <div class="drinkSection">
+                <div onclick="selectDrink(this, 'Water');" class="drink drink4">
+                    <div class="gradient">
+                        <div class="cuisineKind">Water</div>
+                    </div>
+                    <div id="Water" class="drinkSelected displayNone"></div>
+                </div>
+                <div onclick="selectDrink(this, 'Cocktails');" class="drink drink5">
+                    <div class="gradient">
+                        <div class="cuisineKind">Cocktails</div>
+                    </div>
+                    <div id="Cocktails" class="drinkSelected displayNone"></div>
+                </div>
+                <div onclick="selectDrink(this, 'HardLiquor');" class="drink drink6">
+                    <div class="gradient">
+                        <div class="cuisineKind">Hard Liquor</div>
+                    </div>
+                    <div id="HardLiquor" class="drinkSelected displayNone"></div>
+                </div>
+            </div>
+        </div>
+        <form name="drinkForm" action="../goToChefsPage" method="post"></form>
+    </body>
+</html>

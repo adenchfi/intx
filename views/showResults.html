@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/fonts.css"/>
+        <script src="javascripts/jquery-1.11.1.min.js"></script>
+        <script src="javascripts/jquery.navigate.min.js"></script>
+        <script src="javascripts/foodie.js"></script>
+        <script src="javascripts/foodieResults.js"></script>
+    </head>
+    <body>
+        <div class="darkOverlay opacity3">
+            <div class="noFocus">
+                <div class="ultimateFoodie">The Ultimate Foodie</div>
+                <div class="basedOn">Based on your answers, we think you'll like these shows. You'll get a TV notification</div>
+                <div class="newRecommended">when new recommended shows and episodes are added.</div>
+            </div>
+            <form name="retakeForm" action="../retakeQuiz" method="POST">
+                <div class="retakeQuiz navigate">
+                    <a href="#" onclick="javascript:document.forms['retakeForm'].submit()">Retake the quiz</a>
+                </div>
+            </form>
+            <div id="resultsHolder" class="resultSection"></div>
+        </div>
+
+        <div id="confirmOverlay" class="displayNone">
+           <div class="blueTVBanner"></div>
+           <div class="notificationSent" id="notificationStatus">Notification Sent to</div>
+           <div class="notificationSent" id="sentToName"> </div>
+        </div>
+
+        <div id="devicesOverlay" class="displayNone">
+           <img src="img/close.png" class="floatRight" onclick="closeDevicesOverlay()">
+           <div class="selectTV">Select a TV to Send a Notification</div>
+           <% for (var j = 0; j < devices.length; ++j) { %>
+             <div class="deviceBar" onclick="selectDeviceToSendNotification('<%=devices[j].id%>', '<%=devices[j].name%>')">
+                <div class="deviceName"><%=devices[j].name%></div>
+             </div>
+           <% } %>
+        </div>
+
+        <input type="hidden" name="entityId" value=""/>
+        <input type="hidden" name="chefSelected" value="<%=chef%>"/>
+    </body>
+</html>
+
+
+

@@ -1,0 +1,61 @@
+[
+    {
+        "chef": "Alex",
+        "shows": [
+            {"name": "Iron chef America", "icon": "img/Iron-Chef-America.png", "entityId": "6777123509005871112"},
+            {"name": "The Best Thing I Ever Ate", "icon": "img/The-Best-Thing-I-Ever-Made.png", "entityId": "8794468052181682112"},
+            {"name": "Chopped", "icon": "img/chopped.png", "entityId": "6821252711155491112"}
+        ]
+    },
+    {
+        "chef": "Bobby",
+        "shows": [
+            {"name": "Throwdown with Bobby", "icon":"img/throwdown-with-bobby-flay.png", "entityId": "6995322593491199112"},
+            {"name": "Brunch @ Bobby", "icon": "img/BrunchAtBobbys.png", "entityId": "8126705663391225112"},
+            {"name": "Iron chef America","icon": "img/Iron-Chef-America.png", "entityId": "6777123509005871112"}
+        ]
+    },
+    {
+        "chef": "Guy",
+        "shows": [
+            {"name": "The Best Thing I Ever Ate","icon": "img/The-Best-Thing-I-Ever-Made.png", "entityId": "8794468052181682112"},
+            {"name": "Guy’s grocery games","icon": "img/guys-grocery-games.png", "entityId": "6201629569201040112"}
+        ]
+    },
+    {
+        "chef": "Alton",
+        "shows": [
+            {"name": "Good Eats","icon": "img/good-eats.png", "entityId": "6711403570066623112"},
+            {"name": "Iron chef America","icon": "img/Iron-Chef-America.png", "entityId": "6777123509005871112"}
+        ]
+    },
+    {
+        "chef": "Ina",
+        "shows": [
+            {"name": "Barefoot Contessa","icon": "img/barefoot_contessa.png", "entityId":"6711403570066623112"}
+        ]
+    },
+    {
+        "chef": "Rachel",
+        "shows": [
+            {"name":"30-Minute Meals", "icon": "img/30-Minute-Meals.png", "entityId": "9035065925545186112"},
+            {"name": "Iron chef America", "icon": "img/Iron-Chef-America.png", "entityId": "6777123509005871112"}
+        ]
+    },
+    {
+        "chef": "Giada",
+        "shows": [
+            {"name": "Giada", "icon": "img/Giada-at-Home.png", "entityId": "8119442406407759112"},
+            {"name": "Iron chef America", "icon": "img/Iron-Chef-America.png", "entityId": "6777123509005871112"}
+        ]
+    },
+    {
+        "chef": "Tyler",
+        "shows": [
+            {"name":"Tyler Ultimate", "icon": "img/Tylers-Ultimate.png", "entityId": "7092500701161530112"},
+            {"name": "Iron chef America","icon": "img/Iron-Chef-America.png", "entityId": "7092500701161530112"}
+        ]
+    }
+
+
+]
