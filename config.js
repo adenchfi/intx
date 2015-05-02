@@ -7,7 +7,7 @@ module.exports = {
     /*
      The registered callback URL set in portal
      */
-    redirectUri: 'https://intxadamtony.azurewebsites.net/oauthSuccess',
+    redirectUri: 'https://halp.azurewebsites.net/oauthSuccess',
     /* The registered client id set in portal */
     clientId: '8n8u9sk6k8dhdt4mpg6jbc8c',
     /* The registered client secret set in portal */
