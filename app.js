@@ -50,6 +50,7 @@ app.post('/goToChefsPage', foodieController.goToChefsPage);
 app.post('/goToShowsPage', foodieController.goToShowsPage);
 app.put('/tuneToTV', device.tuneToTV);
 app.post('/exitrequest', device.exitrequest);
+app.get('/devices', device.getDevices);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

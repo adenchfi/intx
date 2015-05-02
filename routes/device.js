@@ -14,6 +14,49 @@ exports.tuneToTV = function(req, res) {
     oauthSuccess.getAccessTokenFromSessionOrByRefreshToken(req, res);
 }
 
+exports.getDevices = function(req, res) {
+    logger.info('system=foodie-search-tune-reference event=device.tuneToTV access_token='+req.session.access_token+" showName="+req.body.showName);
+    var access_token = req.session.access_token;
+
+	var deviceurl = "https://secure.api.comcast.net/X1/api/v1/devices";
+
+    var options = {
+        url: deviceurl,
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer "+access_token,
+            "Content-Type": "application/json"
+        }
+    };
+
+    var results;
+    utils.executeHttpRequest(options, 'device.tuneEntity', function(statusCode, data) {
+        try {
+            if (statusCode!==200) {
+                logger.error('system=foodie-search-tune-reference event=device.tuneEntity status=error statusCode=' + statusCode + ' responseBody=' + data);
+            } else {
+                logger.info("system=foodie-search-tune-reference event=device.tuneEntity status=success response="+data);
+            }
+            try {
+                results = JSON.parse(data);
+
+            } catch (e) {
+                logger.error("system=foodie-search-tune-reference event=device.tuneEntity status=error response="+data);
+                results = {statusCode: '404', statusMessage: data};
+            }
+
+        } catch(err) {
+            logger.error('system=foodie-search-tune-reference event=device.tuneEntity status=error responseBody=' + err);
+            results = {statusCode: '404', statusMessage: err};
+        }
+        /* after response sending out, ajax call is complete */
+        res.json({
+            results: results
+        });
+		logger.info('system=foodie-search-tune-reference event=device.getDevices access_token='+req.session.access_token+" result="+result);
+    });
+}
+
 /*
  * a function to call tuneEntity API
  * @param - req: request containing access_token, entity_id
@@ -90,8 +133,7 @@ exports.exitrequest = function(req, res) {
             "Authorization": "Bearer "+access_token,
             "Content-Type": "application/json"
         }
-    };
-
+    }
     utils.executeHttpRequest(options, 'device.exitRequest', function(statusCode, data) {
         try {
             if (statusCode!==200) {
