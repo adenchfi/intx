@@ -1,10 +1,26 @@
-<!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+<head>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/fonts.css"/>
+    <script src="javascripts/jquery-1.11.1.min.js"></script>
+    <script src="javascripts/jquery.navigate.min.js"></script>
+    <script src="javascripts/foodie.js"></script>
+    <script>
+        $(function(){
+            $('.okImg a').navigate({
+                activeClass: 'none'
+            })
+        });
+    </script>
 </head>
-<body>
-    <p>Hi everybody!\nHi Doctor Nick!</p>
+<body class="trailerBg">
+<div>
+    <div class="foodieBanner">The Ultimate Foodie</div>
+    <div class="descAnswer">Answer a few questions and we'll recommend</div>
+    <div class="descFood">food related shows you'll love!</div>
+    <div class="okImg">
+        <form name="startForm" action="../sendSMS" method="post"><a href="#" onclick="javascript:document.forms['startForm'].submit()"><img src="img/OK.png"/></a></form>
+    </div>
+</div>
 </body>
 </html>

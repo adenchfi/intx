@@ -1,3 +1,5 @@
+require("path/to/twilio-node/lib");
+
 /*
  * render to top3Cuisines.html
  */
@@ -33,4 +35,18 @@ exports.goToShowsPage = function(req, res) {
 
 exports.goToMyPage = function(req, res) {
     res.render('myPage');
+}
+
+exports.sendSMS = function(req, res) {
+    var accountSid = 'AC32a3c49700934481addd5ce1659f04d2';
+    var authToken = "{{ auth_token }}";
+    var client = require('twilio')(accountSid, authToken);
+
+    client.messages.create({
+        body: "Jenny please?! I love you <3",
+        to: "+2244564700",
+        from: "+2244564700"
+    }, function(err, message) {
+        process.stdout.write(message.sid);
+    });
 }
