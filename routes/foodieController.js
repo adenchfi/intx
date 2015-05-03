@@ -30,3 +30,7 @@ exports.goToShowsPage = function(req, res) {
         chef: req.body.chef,
         devices:req.session.devices});
 }
+
+exports.goToMyPage = function(req, res) {
+    res.render('myPage');
+}
