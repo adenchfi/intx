@@ -48,6 +48,7 @@ app.post('/retakeQuiz', foodieController.goToCuisinesPage);
 app.post('/goToDrinksPage', foodieController.goToDrinksPage);
 app.post('/goToChefsPage', foodieController.goToChefsPage);
 app.post('/goToShowsPage', foodieController.goToShowsPage);
+app.post('/goToMyPage', foodieController.goToMyPage);
 app.put('/tuneToTV', device.tuneToTV);
 app.post('/exitrequest', device.exitrequest);
 app.get('/devices', device.getDevices);
