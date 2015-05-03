@@ -62,7 +62,7 @@ function getAccessToken(req, res) {
                     req.session.access_token_start_time = new Date().getTime();
 
                     /* render to ultimateFoodie page */
-                    res.render('ultimateFoodie',{
+                    res.render('top3Cuisines',{
                         access_token: req.session.access_token
                     });
 
